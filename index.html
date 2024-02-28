@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Set the size of your map */
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .highlighted-marker {
+            background-color: #ff0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        var map;
+
+        function updateMarkerColor(marker, isUnderLimit) {
+            if (isUnderLimit) {
+                marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+            } else {
+                marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
+            }
+        }
+
+        // Function to handle double click event on marker
+        function handleMarkerDoubleClick() {
+            // Open a new window or modal to display data
+            window.open('https://docs.google.com/spreadsheets/d/1-rQXU0t33ILZb3maYWHjexXdAcKLVph0ljoGLspnmzQ/edit?fbclid=IwAR05Vp5fuVQTOXHcBM8QyRUkapmcTTMWPq8NM8krLtx1uQsPgSAA7T-JSwA#gid=648059493', '_blank');
+        }
+
+        // Sample code to add markers to the map
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 20.98757293313669, lng: 105.93685697450815 },
+                zoom: 15
+            });
+
+            // Create markers
+            var locations = [
+                { lat: 20.98757293313669, lng: 105.93685697450815 },
+                { lat: 20.9885281986878, lng: 105.93641384324708 },
+                { lat: 20.989660048349222, lng: 105.936062074998 },
+                { lat: 20.990689732556987, lng: 105.9356772327678 }
+            ];
+
+            for (var i = 0; i < locations.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: locations[i],
+                    map: map
+                });
+
+                // Add event listeners
+                marker.addListener('dblclick', function () {
+                    handleMarkerDoubleClick();
+                });
+            }
+        }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_jjEWpmFuyGfgxVIXzANcA9VacMX2NHU&callback=initMap">
+    </script>
+</body>
+</html>
+
